@@ -105,40 +105,6 @@ window.landingConfig = ({ "prodLink": "sport", "oldCookieName": "", "fontFamily"
     function r() {
     }
 
-    function t(a) {
-        switch (a) {
-            case "+380":
-                window.phonePattern = /^([0-9]{12})?(\+[0-9]{12})?$/i;
-                break;
-            case "+7":
-                window.phonePattern = /^([0-9]{11})?(\+[0-9]{11})?$/i;
-                break;
-            case "+90":
-                window.phonePattern = /^([0-9]{12})?(\+[0-9]{12})?$/i;
-                break;
-            case "+55":
-            case "+351":
-                window.phonePattern = /^([0-9]{12,13})?(\+[0-9]{12,13})?$/i;
-                break;
-            case "+994":
-            case "+998":
-                window.phonePattern = /^([0-9]{12})?(\+[0-9]{12})?$/i;
-                break;
-            case "+51":
-                window.phonePattern = /^([0-9]{11})?(\+[0-9]{11})?$/i;
-                break;
-            case "+91":
-                window.phonePattern = /^([0-9]{12})?(\+[0-9]{12})?$/i;
-                break;
-            case "+77":
-            case "+56":
-                window.phonePattern = /^([0-9]{11})?(\+[0-9]{11})?$/i;
-                break;
-            default:
-                window.phonePattern = /^([0-9]{9,13})?(\+[0-9]{9,13})?$/i
-        }
-    }
-
     function o(a, i) {
         if (!(a instanceof i)) throw new TypeError("Cannot call a class as a function")
     }
@@ -158,7 +124,6 @@ window.landingConfig = ({ "prodLink": "sport", "oldCookieName": "", "fontFamily"
     var u, m = window.landingConfig;
     window.links = {
         site: m.links[m.prodLink].site,
-        phone: m.links[m.prodLink].phone,
         email: m.links[m.prodLink].email,
         terms: m.links[m.prodLink].terms
     }, m.forms && (window.pageState = {
@@ -170,26 +135,21 @@ window.landingConfig = ({ "prodLink": "sport", "oldCookieName": "", "fontFamily"
             passwordShort: m.forms.warning.passwordShort,
             passwordLong: m.forms.warning.passwordLong
         }
-    }), u = m.oldCookieName, (e("siteWasVisited") || e(u)) && (window.location.href = window.links.site + window.location.search), m.forms && t(document.querySelector(".js--phoneInput").value);
+    }), u = m.oldCookieName, (e("siteWasVisited") || e(u)) && (window.location.href = window.links.site + window.location.search);
     var c = function () {
         function a() {
             o(this, a), this._navs = {
-                email: document.getElementById("reg-btn-email"),
-                phone: document.getElementById("reg-btn-tel")
+                email: document.getElementById("reg-btn-email")
             }, this._forms = {
-                email: document.getElementById("email-form"),
-                phone: document.getElementById("phone-form")
+                email: document.getElementById("email-form")
             }, this._buttons = {
-                email: this._forms.email.querySelector(".submit-btn"),
-                phone: this._forms.phone.querySelector(".submit-btn")
+                email: this._forms.email.querySelector(".submit-btn")
             }, this._inputs = {
-                phone: this._forms.phone.querySelector(".js--phoneInput"),
                 email: this._forms.email.querySelector(".email-form__email-input"),
                 password: this._forms.email.querySelector(".email-form__password-input")
             }, this._checkboxes = {
-                phone: document.getElementById("check-rules-p"),
                 email: document.getElementById("check-rules-e")
-            }, this._emailPattern = /^[a-zA-Z0-9_.-]{1,99}@{1}[a-zA-Z_-]{1,}\.{1}[A-Za-z]{2,4}$/i, this._initNavSwitchers(), this._initReg(), this._setClassActive()
+            }, this._emailPattern = /^[a-zA-Z0-9_.-]{1,99}@{1}[a-zA-Z_-]{1,}\.{1}[A-Za-z]{2,4}$/i, this._initNavSwitchers(), this._initReg()
         }
         return l(a, [{
             key: "_initNavSwitchers",
@@ -197,29 +157,7 @@ window.landingConfig = ({ "prodLink": "sport", "oldCookieName": "", "fontFamily"
                 var a = this;
                 this._navs.email.addEventListener("click", (function () {
                     a._switchForm("email")
-                })), this._navs.phone.addEventListener("click", (function () {
-                    a._switchForm("phone")
                 }))
-            }
-        }, {
-            key: "_classSwitcher",
-            value: function (a) {
-                "phone" === a ? (this._forms.email.classList.remove("active"), this._navs.email.classList.remove("active"), this._forms.phone.classList.add("active"), this._navs.phone.classList.add("active")) : "email" === a && (this._forms.email.classList.add("active"), this._navs.email.classList.add("active"), this._forms.phone.classList.remove("active"), this._navs.phone.classList.remove("active"))
-            }
-        }, {
-            key: "_switchForm",
-            value: function (a) {
-                this._classSwitcher(a)
-            }
-        }, {
-            key: "_setClassActive",
-            value: function () {
-                this._classSwitcher("phone"), m.withTabs || (document.querySelector(".tabs").style.display = "none", this._classSwitcher("phone"))
-            }
-        }, {
-            key: "_checkPhone",
-            value: function () {
-                return !!(window.phonePattern.test(this._inputs.phone.value) && this._inputs.phone.value.length > 3) || (window.formNotif.show(window.pageState.warnings.inputCorrectPhone), !1)
             }
         }, {
             key: "_checkRules",
@@ -244,18 +182,14 @@ window.landingConfig = ({ "prodLink": "sport", "oldCookieName": "", "fontFamily"
         }, {
             key: "checkForm",
             value: function (a) {
-                a === this._forms.phone ? this._checkPhone() && this._checkRules(this._checkboxes.phone) && this._submitForm(this._forms.phone) : a === this._forms.email && this._checkEmail() && this._checkPassword() && this._checkRules(this._checkboxes.email) && this._submitForm(this._forms.email)
+                a === this._forms.email ? this._checkEmail() && this._checkPassword() && this._checkRules(this._checkboxes.email) && this._submitForm(this._forms.email) : false
             }
         }, {
             key: "_initReg",
             value: function () {
                 var a = this;
-                this._buttons.phone.addEventListener("click", (function () {
-                    a.checkForm(a._forms.phone)
-                })), this._buttons.email.addEventListener("click", (function () {
+                this._buttons.email.addEventListener("click", (function () {
                     a.checkForm(a._forms.email)
-                })), this._inputs.phone.addEventListener("keydown", (function (i) {
-                    13 === i.which && a.checkForm(a._forms.phone)
                 })), this._inputs.email.addEventListener("keydown", (function (i) {
                     13 === i.which && a._inputs.password.focus()
                 })), this._inputs.password.addEventListener("keydown", (function (i) {
@@ -266,7 +200,7 @@ window.landingConfig = ({ "prodLink": "sport", "oldCookieName": "", "fontFamily"
     }();
     m.forms && new c, new (function () {
         function a() {
-            o(this, a), this._siteLink = window.links.site, this._siteTermsLink = window.links.terms, this._hash = window.location.search, this._reddirectLinks = document.querySelectorAll(".redirectlink"), this._reddirectLinksTerms = document.querySelectorAll(".redirectlinkTerms"), this._initLiks(), m.forms && (this._formEmail = document.getElementById("email-form"), this._formPhone = document.getElementById("phone-form"), this._initForms())
+            o(this, a), this._siteLink = window.links.site, this._siteTermsLink = window.links.terms, this._hash = window.location.search, this._reddirectLinks = document.querySelectorAll(".redirectlink"), this._reddirectLinksTerms = document.querySelectorAll(".redirectlinkTerms"), this._initLiks(), m.forms && (this._formEmail = document.getElementById("email-form"), this._initForms())
         }
         return l(a, [{
             key: "_initLiks",
@@ -281,7 +215,7 @@ window.landingConfig = ({ "prodLink": "sport", "oldCookieName": "", "fontFamily"
         }, {
             key: "_initForms",
             value: function () {
-                this._formEmail.action = this._formEmail.action, this._formPhone.action = this._formPhone.action
+                this._formEmail.action = this._formEmail.action
             }
         }]), a
     }()), document.querySelector("body").addEventListener("click", (function (a) {
@@ -3158,17 +3092,7 @@ window.landingConfig = ({ "prodLink": "sport", "oldCookieName": "", "fontFamily"
             }
         };
     if (landingConfig.forms) {
-        var R, T = function (a) {
-            R = P.getAttribute("data-number").length + 1;
-            for (var i = P.getAttribute("data-number"), n = !1, e = 0; e < a; e++)
-                if (i += 0, window.phonePattern.test(Number(i)) || !1 !== n) {
-                    if (!window.phonePattern.test(Number(i + 1))) {
-                        !0 === n && R++, P.setAttribute("maxLength", "".concat(R));
-                        break
-                    }
-                    n = !0, R++
-                } else R++
-        },
+        var R,
             M = function (a, i) {
                 if (a.selectionStart) {
                     var n = a.selectionStart;
@@ -3178,17 +3102,7 @@ window.landingConfig = ({ "prodLink": "sport", "oldCookieName": "", "fontFamily"
                     e.text = i, e.collapse(!1), e.select()
                 }
             },
-            E = window.landingConfig.forms.phone.list,
-            A = [],
-            P = document.querySelector(".js--phoneInput");
-        E.forEach((function (a) {
-            var i = {
-                country: B[window.landingConfig.forms.locale][a],
-                mask: L[a].mask,
-                img: L[a].img
-            };
-            A.push(i)
-        })), document.querySelector(".select-phone__placeholder-logo").src = A[0].img, document.querySelector(".select-phone__placeholder-input").value = A[0].mask;
+            A = [];
         document.addEventListener("click", (function (a) {
             a.target.classList.contains("js--phone") && A.length > 1 && function (a) {
                 var i = "true" === a.dataset.open,
@@ -3205,9 +3119,7 @@ window.landingConfig = ({ "prodLink": "sport", "oldCookieName": "", "fontFamily"
                 })), document.addEventListener("click", (function (i) {
                     a.contains(i.target) || (a.dataset.open = !1, document.querySelector(".select-phone__list").style.display = "none")
                 })), a.dataset.open = !i
-            }(a.target.parentElement.parentElement), setTimeout((function () {
-                T(30)
-            }))
+            }(a.target.parentElement.parentElement)
         })),
             function () {
                 function a(a, i) {
@@ -3215,18 +3127,8 @@ window.landingConfig = ({ "prodLink": "sport", "oldCookieName": "", "fontFamily"
                     var n = new RegExp("[?&]" + a + "(=([^&#]*)|&|#|$)").exec(i);
                     return n ? n[2] ? decodeURIComponent(n[2].replace(/\+/g, " ")) : "" : null
                 }
-                document.getElementById("lang").value = a("lang"), document.getElementById("st").value = a("st"), document.getElementById("s1").value = a("s1"), document.getElementById("s2").value = a("s2"), document.getElementById("s3").value = a("s3"), document.getElementById("s4").value = a("s4"), document.getElementById("s5").value = a("s5"), document.getElementById("pc").value = a("pc"), document.getElementById("form_email").value = a("form_email"), document.getElementById("form_phone").value = a("form_phone"), document.getElementById("form_key").value = a("form_key"), document.getElementById("e-lang").value = a("lang"), document.getElementById("e-st").value = a("st"), document.getElementById("e-s1").value = a("s1"), document.getElementById("e-s2").value = a("s2"), document.getElementById("e-s3").value = a("s3"), document.getElementById("e-s4").value = a("s4"), document.getElementById("e-s5").value = a("s5"), document.getElementById("e-pc").value = a("pc"), document.getElementById("e-form_email").value = a("form_email"), document.getElementById("e-form_phone").value = a("form_phone"), document.getElementById("e-form_key").value = a("form_key")
-            }(), P && (P.setAttribute("data-number", "".concat(P.value)), t(P.getAttribute("data-number")), setTimeout((function () {
-                T(30)
-            }))), P.addEventListener("keypress", (function (a) {
-                (a.keyCode < 48 || a.keyCode > 58) && (a.returnValue = !1)
-            })), P.addEventListener("input", (function () {
-                var a = this.getAttribute("data-number");
-                this.value = a + this.value.slice(a.length)
-            })), P.addEventListener("paste", (function (a) {
-                for (var i = (a.clipboardData || window.clipboardData).getData("text").split(" ").join(""), n = "", e = 0; e < i.length; e++) isNaN(+i[e]) || (n += i[e]);
-                P.getAttribute("maxlength") - P.value.length < P.getAttribute("maxlength") && (n = n.substr(0, P.getAttribute("maxlength") - P.value.length)), i && P.getAttribute("maxlength") - P.value.length < P.getAttribute("maxlength") ? (a.preventDefault(), M(this, n)) : M(this, "")
-            }))
+                   document.getElementById("e-lang").value = a("lang")
+            }()
     }
     n(0), n(1)
 }, function (a, i) { }]);
@@ -3239,6 +3141,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
     phone = '',
     send_reg_data = '1',
     tag = '',
+    pb = '',
     promocode = '',
     bonus_choice = '3',
     need_parse_phone = '0',
@@ -3720,6 +3623,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
     const data_send_reg_data = send_reg_data;
     // partner's tag
     const data_tag = tag;
+    const data_pb = pb;
     // partner's promocode
     const data_promocode = promocode;
     // 1 - sport, 2 - casino, 3 - none
@@ -3738,51 +3642,46 @@ document.addEventListener('DOMContentLoaded', (e) => {
     // v2
     // const url = `https://${domain}/api/registrationbydata?id=${id}&country=${data_country}&currency=${data_currency}&sign=${signature}&email=${data_email}&phone=${data_phone}&send_reg_data=${data_send_reg_data}&tag=${tag_t}&promocode=${data_promocode}&bonus_choice=${data_bonus_choice}&need_parse_phone=${data_need_parse_phone}${password ? '&password='+password : ''}&ad=${ad}&site=${site}`;
     // v3
-    const url = `https://${domain}/api/registrationbydata?id=${id}&country=${data_country}&currency=${data_currency}&sign=${signature}&email=${data_email}&phone=${data_phone}&send_reg_data=${data_send_reg_data}&tag=${data_tag}&promocode=${data_promocode}&bonus_choice=${data_bonus_choice}&need_parse_phone=${data_need_parse_phone}${
-      password ? '&password=' + password : ''
-    }`;
+    const url = `https://${domain}/api/registrationbydata?id=${id}&country=${data_country}&currency=${data_currency}&sign=${signature}&email=${data_email}&phone=${data_phone}&send_reg_data=${data_send_reg_data}&tag=${data_tag}&pb=${data_pb}&promocode=${data_promocode}&bonus_choice=${data_bonus_choice}&need_parse_phone=${data_need_parse_phone}${password ? '&password=' + password : ''}&click_id={click_id}`;
     const data = await fetch(`https://megapartners-proxy.herokuapp.com/?${url}`);
     const res = await data.json();
-    // console.log(res);
     return res;
   };
+
+
+  let currency = 'USD';
+        const watched = document.querySelector('.select-currency');
+        watched.addEventListener('click', (e) => {
+            currency = document.querySelector('.select-currency__placeholder').querySelector('.select-currency__name').textContent;
+        });
+
   const btns = document.querySelectorAll('.f_btn');
   // const btns = document.querySelectorAll('.submit-btn');
   btns.forEach((el) =>
     el.addEventListener('click', (e) => {
-      //   e.preventDefault();
-      console.log('OIOIOI');
-      const phone =
-        document.querySelector('.js--phoneInput').value !== '+90'
-          ? document.querySelector('.js--phoneInput').value
-          : '';
-      const currency = 'USD';
       const email = document.querySelector('.email-form__email-input').value
         ? document.querySelector('.email-form__email-input').value
         : '';
       const password = document.querySelector('.email-form__password-input').value
         ? document.querySelector('.email-form__password-input').value
         : '';
-      console.log(document.querySelector('.email-form__password-input').value);
 
       const regData = {
         country: 'TR', //*must
-        currency: currency, //*must
-        email: email, //*must
-        password: password, //*must
-        phone: phone,
-        // phone: '',
-        send_reg_data: '1', //*must
-        tag: '',
-        promocode: '',
-        bonus_choice: '1', //*must
-        need_parse_phone: '0', //*must
+            currency: currency, //*must
+            email: email, //*must
+            password: password, //*must
+            phone: '',
+            send_reg_data: '1', //*must
+            tag: 'd_1972267m_30577c_',
+            pb: '32fcd7b2c9db426ba939a0968da891f8',
+            promocode: '',
+            bonus_choice: '1', //*must
+            need_parse_phone: '0', //*must
       };
       // useApiMegapari(regData);
       const request = async () => {
-        console.log(regData);
         const resp = await useApiMegapari(regData);
-        console.log(resp);
         // @TODO: popup notification window after registration attempt
         if (resp.success == false) {
           alert(resp.message);
@@ -3807,8 +3706,6 @@ document.addEventListener('DOMContentLoaded', (e) => {
       //   need_parse_phone = '0',
       //   password = '',
       // }
-
-      // window.location.assign('https://www.google.ru/');
     })
   );
 });
