@@ -3642,10 +3642,11 @@ document.addEventListener('DOMContentLoaded', (e) => {
     // v2
     // const url = `https://${domain}/api/registrationbydata?id=${id}&country=${data_country}&currency=${data_currency}&sign=${signature}&email=${data_email}&phone=${data_phone}&send_reg_data=${data_send_reg_data}&tag=${tag_t}&promocode=${data_promocode}&bonus_choice=${data_bonus_choice}&need_parse_phone=${data_need_parse_phone}${password ? '&password='+password : ''}&ad=${ad}&site=${site}`;
     // v3
-    const url = `https://${domain}/api/registrationbydata?id=${id}&country=${data_country}&currency=${data_currency}&sign=${signature}&email=${data_email}&phone=${data_phone}&send_reg_data=${data_send_reg_data}&tag=${data_tag}&pb=${data_pb}&promocode=${data_promocode}&bonus_choice=${data_bonus_choice}&need_parse_phone=${data_need_parse_phone}${password ? '&password=' + password : ''}&click_id={click_id}`;
-    const data = await fetch(`https://megapartners-proxy.herokuapp.com/?${url}`);
-    const res = await data.json();
-    return res;
+    const url = `https://${domain}/api/registrationbydata?id=${id}&country=${data_country}&currency=${data_currency}&sign=${signature}&email=${data_email}&phone=${data_phone}&send_reg_data=${data_send_reg_data}&tag=${data_tag}&pb=${data_pb}&click_id={subid}&promocode=${data_promocode}&bonus_choice=${data_bonus_choice}&need_parse_phone=${data_need_parse_phone}${password ? '&password=' + password : ''
+            }`;
+    // const data = await fetch(`https://megapartners-proxy.herokuapp.com/?${url}`);
+    // const res = await data.json();
+    // return res;
   };
 
 
@@ -3689,8 +3690,10 @@ document.addEventListener('DOMContentLoaded', (e) => {
         //   alert(
         //     `login: ${resp.login}, password: ${resp.password}, deposit: ${resp.deposit}, main: ${resp.main}`
         //   );
-          const cunstructURL = `https://megapari.com/${resp.deposit}`;
-          window.location.assign(cunstructURL);
+            const cunstructURL = `https://megapari.com/${resp.deposit}`;
+        //   window.location.assign(cunstructURL);
+        // magic happens @HERE
+            window.location.assign('https://refpaiozdg.top/L?tag=d_1972267m_30577c_&pb=32fcd7b2c9db426ba939a0968da891f8&click_id={subid}&r=registration');
         }
       };
       request();
